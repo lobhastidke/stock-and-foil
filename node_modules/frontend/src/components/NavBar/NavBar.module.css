@@ -1,0 +1,125 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 12, 24, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+.brand:hover { color: var(--primary-light); }
+
+.brandIcon {
+  font-size: 1.25rem;
+  color: var(--primary-light);
+}
+
+.brandName {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--text-primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Nav links */
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  flex: 1;
+}
+
+.link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+.link:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+.linkActive {
+  color: var(--primary-light);
+  background: var(--primary-subtle);
+}
+
+/* User area */
+.userArea {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.roleBadge {
+  background: var(--primary-subtle);
+  color: var(--primary-light);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: 0.65rem;
+  padding: 2px 8px;
+}
+
+.userName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.logoutBtn {
+  font-size: 0.8125rem;
+}
+
+.authLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 16px;
+    gap: var(--space-3);
+  }
+  .links {
+    display: none; /* simplified for mobile — implement hamburger if needed */
+  }
+  .userName {
+    display: none;
+  }
+}

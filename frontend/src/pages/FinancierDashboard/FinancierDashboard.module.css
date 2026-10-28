@@ -1,0 +1,158 @@
+.demoCallout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(168, 85, 247, 0.1));
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.demoCalloutIcon {
+  font-size: var(--text-2xl);
+  line-height: 1;
+}
+
+.demoCalloutTitle {
+  font-weight: 700;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.demoCalloutText {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-6);
+}
+
+.tab {
+  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  color: var(--color-brand);
+  border-bottom-color: var(--color-brand);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.invoiceNumber {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--text-md);
+}
+
+.cardAmount {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.metaLabel {
+  color: var(--text-muted);
+}
+
+.cardFooter {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pledgeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.pledgeCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pledgeCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.pledgeCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.pledgeAmount {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.totalCount {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: right;
+}

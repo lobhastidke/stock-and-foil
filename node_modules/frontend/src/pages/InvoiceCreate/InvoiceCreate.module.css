@@ -1,0 +1,9 @@
+.container { max-width: 720px; }
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+}
