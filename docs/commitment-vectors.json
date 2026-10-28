@@ -1,0 +1,92 @@
+[
+  {
+    "description": "Vector 1: Standard INR invoice with standard amount and dates",
+    "input": {
+      "invoiceNumber": "INV-2026-001",
+      "supplierId": "11111111-1111-1111-1111-111111111111",
+      "buyerId": "22222222-2222-2222-2222-222222222222",
+      "amountMinorUnits": "500000",
+      "currency": "INR",
+      "issueDate": "2026-03-01",
+      "dueDate": "2026-04-01"
+    },
+    "canonicalJson": "{\"amountMinorUnits\":\"500000\",\"buyerId\":\"22222222-2222-2222-2222-222222222222\",\"currency\":\"INR\",\"dueDate\":\"2026-04-01\",\"invoiceNumber\":\"INV-2026-001\",\"issueDate\":\"2026-03-01\",\"supplierId\":\"11111111-1111-1111-1111-111111111111\",\"v\":1}",
+    "salt": "0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "commitment": "0xef701a52c86aa733646fce72c16bea2f7f4599997a7198dc8c1a07516628707e",
+    "pledgeMarker": "0x2d43b001b37ceb63c135d10f914f82e48e947b209fae61d39ac0411fd0811c74",
+    "supplierRef": "0x797f96baa02812e18e0338595322a2ed27ef8ca0ee028d9e081e20dc48ec39c0",
+    "buyerRef": "0x7900b61bfb81a9a9400feece22858b486bed390409b9744493228e5409e58316"
+  },
+  {
+    "description": "Vector 2: Leading zeros in amount and untrimmed uppercase IDs (verifying normalization)",
+    "input": {
+      "invoiceNumber": "  INV-2026-002  ",
+      "supplierId": "33333333-3333-3333-3333-333333333333",
+      "buyerId": "44444444-4444-4444-4444-444444444444",
+      "amountMinorUnits": "00750000",
+      "currency": "inr",
+      "issueDate": "2026-05-10",
+      "dueDate": "2026-06-10"
+    },
+    "canonicalJson": "{\"amountMinorUnits\":\"750000\",\"buyerId\":\"44444444-4444-4444-4444-444444444444\",\"currency\":\"INR\",\"dueDate\":\"2026-06-10\",\"invoiceNumber\":\"INV-2026-002\",\"issueDate\":\"2026-05-10\",\"supplierId\":\"33333333-3333-3333-3333-333333333333\",\"v\":1}",
+    "salt": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "commitment": "0x9d9576b786bcd44e524e97abdffcb9f5fc89606b1e2a0f443e55c201dc90d9c4",
+    "pledgeMarker": "0xad5c3194058433c509deb6fb1843504181c4302c16a4ab03801a18ba33bfd318",
+    "supplierRef": "0xd0814a37bd42d9348d0da5c01ad8fe013bb9b5ff96648487b91c37006f2fa91f",
+    "buyerRef": "0x9a38a63de96e09d2a9b9b8b91409088119a17bdae7ad23b6bb84389bd1aab60e"
+  },
+  {
+    "description": "Vector 3: Unicode NFC normalization with accent marks in invoice number",
+    "input": {
+      "invoiceNumber": "INV-CAFÉ-2026",
+      "supplierId": "55555555-5555-5555-5555-555555555555",
+      "buyerId": "66666666-6666-6666-6666-666666666666",
+      "amountMinorUnits": "1250000",
+      "currency": "EUR",
+      "issueDate": "2026-07-15",
+      "dueDate": "2026-08-15"
+    },
+    "canonicalJson": "{\"amountMinorUnits\":\"1250000\",\"buyerId\":\"66666666-6666-6666-6666-666666666666\",\"currency\":\"EUR\",\"dueDate\":\"2026-08-15\",\"invoiceNumber\":\"INV-CAFÉ-2026\",\"issueDate\":\"2026-07-15\",\"supplierId\":\"55555555-5555-5555-5555-555555555555\",\"v\":1}",
+    "salt": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "commitment": "0x7a253c76f80329b4b1df15cabc7ddf1e87e299eade29e2fc8937df227c6a8aae",
+    "pledgeMarker": "0x126059d85fa7bd15854c35110acba48e78ce7ef488089009dcab78c2d675c05c",
+    "supplierRef": "0x25330a6060b10b0af306afbd9ef6eb7571e5533bc6e327e11984fc606b4560f5",
+    "buyerRef": "0xb4a6e5bcb06b732fc2832876c91965926dd65f8cbd8be75d4ec6b201cbf49b58"
+  },
+  {
+    "description": "Vector 4: High-value USD invoice with leap day boundary",
+    "input": {
+      "invoiceNumber": "INV-USD-999",
+      "supplierId": "77777777-7777-7777-7777-777777777777",
+      "buyerId": "88888888-8888-8888-8888-888888888888",
+      "amountMinorUnits": "99999999999",
+      "currency": "USD",
+      "issueDate": "2028-02-28",
+      "dueDate": "2028-02-29"
+    },
+    "canonicalJson": "{\"amountMinorUnits\":\"99999999999\",\"buyerId\":\"88888888-8888-8888-8888-888888888888\",\"currency\":\"USD\",\"dueDate\":\"2028-02-29\",\"invoiceNumber\":\"INV-USD-999\",\"issueDate\":\"2028-02-28\",\"supplierId\":\"77777777-7777-7777-7777-777777777777\",\"v\":1}",
+    "salt": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "commitment": "0xda528a3afbeff73bf9dfc2e7c029255e0d79b02a682d05a09ab8db429556c814",
+    "pledgeMarker": "0xadc9be8f8d13c7c8de1f841671ec7f5b26cd7ff3921ff77781ad7fb4c7adb4dc",
+    "supplierRef": "0x48123ca2830df235d78decb1b06b3555f945a6a651556b04c55544533fcb9cd0",
+    "buyerRef": "0xabbd9aa5c74fa01a31ff2a7fb9fa05b5f42ca278ffb6a47375259ea345a7dee2"
+  },
+  {
+    "description": "Vector 5: Identical data to Vector 1 with a different salt (proves commitment divergence)",
+    "input": {
+      "invoiceNumber": "INV-2026-001",
+      "supplierId": "11111111-1111-1111-1111-111111111111",
+      "buyerId": "22222222-2222-2222-2222-222222222222",
+      "amountMinorUnits": "500000",
+      "currency": "INR",
+      "issueDate": "2026-03-01",
+      "dueDate": "2026-04-01"
+    },
+    "canonicalJson": "{\"amountMinorUnits\":\"500000\",\"buyerId\":\"22222222-2222-2222-2222-222222222222\",\"currency\":\"INR\",\"dueDate\":\"2026-04-01\",\"invoiceNumber\":\"INV-2026-001\",\"issueDate\":\"2026-03-01\",\"supplierId\":\"11111111-1111-1111-1111-111111111111\",\"v\":1}",
+    "salt": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "commitment": "0x94130397be8f1fe11d5341b9fe46d9575047be6e36ec7ef598a3ff7fc0f1bd09",
+    "pledgeMarker": "0xe89f56254588b1aee5b932267e84d1784ed65b730fb01b5ed21a621a83eef473",
+    "supplierRef": "0x797f96baa02812e18e0338595322a2ed27ef8ca0ee028d9e081e20dc48ec39c0",
+    "buyerRef": "0x7900b61bfb81a9a9400feece22858b486bed390409b9744493228e5409e58316"
+  }
+]
