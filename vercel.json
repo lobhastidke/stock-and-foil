@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build -w frontend",
+  "outputDirectory": "frontend/dist",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "backend/src/db/migrations/**",
+      "maxDuration": 15
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/v1/internal/reconcile",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}
