@@ -1,6 +1,6 @@
 /**
  * components/CommitmentView/CommitmentView.tsx
- * Shows the commitment hash + "Verify commitment" button.
+ * Shows the cryptographic commitment hash + "Verify commitment" button.
  */
 
 import React, { useState } from 'react';
@@ -39,7 +39,10 @@ export function CommitmentView({ commitment, invoiceId }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span className={styles.label}>Commitment hash</span>
+        <div className={styles.labelWrapper}>
+          <span className={styles.label}>🔐 Keccak-256 Commitment</span>
+          <span className={styles.proofBadge}>MST Anchor</span>
+        </div>
         <div className={styles.actions}>
           <button
             type="button"
@@ -47,25 +50,35 @@ export function CommitmentView({ commitment, invoiceId }: Props) {
             onClick={() => { void handleCopy(); }}
             aria-label="Copy commitment hash"
           >
-            {copied ? '✓ Copied' : 'Copy'}
+            {copied ? '✓ Copied' : '📋 Copy Hash'}
           </button>
           <button
             type="button"
-            className="btn btn-secondary btn-sm"
+            className="btn btn-primary btn-sm"
             onClick={() => { void handleVerify(); }}
             disabled={verifying}
             aria-busy={verifying}
           >
-            {verifying ? 'Verifying…' : 'Verify commitment'}
+            {verifying ? '⚡ Verifying on Chain…' : '🛡️ Verify Cryptographic Proof'}
           </button>
         </div>
       </div>
-      <code className={`code-block ${styles.hash}`}>{commitment}</code>
+
+      <div className={styles.hashBox}>
+        <code className={`code-block ${styles.hash}`}>{commitment}</code>
+      </div>
+
       {verified === true && (
-        <p className={styles.valid}>✓ Commitment verified — data matches the hash</p>
+        <p className={styles.valid}>
+          <span>✓</span>
+          <span>Commitment verified — on-chain state perfectly matches the canonical invoice hash</span>
+        </p>
       )}
       {verified === false && (
-        <p className={styles.invalid}>✗ Commitment mismatch — contact support</p>
+        <p className={styles.invalid}>
+          <span>✗</span>
+          <span>Commitment mismatch detected — hash does not match current state</span>
+        </p>
       )}
     </div>
   );

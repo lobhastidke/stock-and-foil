@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../../components/Layout/Layout.js';
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
+import { AnimatedHeading } from '../../components/AnimatedHeading/AnimatedHeading.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { getBuyers, createInvoice } from '../../api/endpoints.js';
 import { invoiceFormSchema, type InvoiceForm } from '../../lib/validation.js';
@@ -79,7 +80,7 @@ export default function InvoiceCreate() {
   return (
     <Layout>
       <div className="page-header">
-        <h1 className="page-title">New Invoice</h1>
+        <AnimatedHeading text="New Invoice" as="h1" className="page-title" />
       </div>
 
       <div className={styles.container}>

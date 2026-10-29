@@ -12,6 +12,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../components/Layout/Layout.js';
 import { LoadingState } from '../../components/LoadingState/LoadingState.js';
+import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
+import { VerificationTimeline } from '../../components/VerificationTimeline/VerificationTimeline.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { getSystemStatus } from '../../api/endpoints.js';
 import { ROUTES } from '../../routes.js';
@@ -95,10 +97,12 @@ export default function AboutPage() {
     <Layout>
       <div className="page-header">
         <div>
-          <h1 className="page-title">About Stock &amp; Foil</h1>
-          <p className="text-secondary text-md mt-1">
-            Finance the invoice. Not the fraud.
-          </p>
+          <AnimatedHeading text="About Stock & Foil" as="h1" className="page-title" />
+          <AnimatedText delayMs={160}>
+            <p className="text-secondary text-md mt-1">
+              Finance the invoice. Not the fraud. Privacy-preserving trade finance.
+            </p>
+          </AnimatedText>
         </div>
         <Link to={ROUTES.login} className="btn btn-primary">
           Launch App →
@@ -107,7 +111,7 @@ export default function AboutPage() {
 
       {/* Overview Card */}
       <div className="card mb-8">
-        <h2 className="card-title">Project Mission</h2>
+        <AnimatedHeading text="Project Mission & Architecture" as="h2" className="card-title" />
         <p className="text-secondary mb-4 leading-relaxed">
           Stock &amp; Foil is a privacy-preserving receivables-financing registry built for the MST Blockchain Buildathon #2.
           In traditional trade finance, duplicate invoicing (pledging the same invoice to multiple lenders) accounts for billions
@@ -141,9 +145,14 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Interactive Scroll-Driven Verification Timeline */}
+      <div className="card mb-8">
+        <VerificationTimeline />
+      </div>
+
       {/* System Status Section */}
       <div className="card mb-8">
-        <h2 className="card-title">System &amp; Blockchain Configuration</h2>
+        <AnimatedHeading text="System & Blockchain Configuration" as="h2" className="card-title" />
         {statusLoading ? (
           <LoadingState message="Checking system status…" />
         ) : status ? (
@@ -181,7 +190,7 @@ export default function AboutPage() {
       {/* Honest Limits Section */}
       <div className="card mb-8">
         <div className={styles.limitsHeader}>
-          <h2 className="card-title mb-0">The Honest Limits</h2>
+          <AnimatedHeading text="The Honest Limits" as="h2" className="card-title mb-0" />
           <span className="badge badge-amber font-semibold">Transparency Guarantee</span>
         </div>
         <p className="text-secondary text-sm mb-6">
@@ -199,9 +208,9 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Demo Walkthrough Script */}
+      {/* Quick Evaluation Reference */}
       <div className="card">
-        <h2 className="card-title">Evaluation &amp; Demo Script</h2>
+        <AnimatedHeading text="Demo Account Credentials & Walkthrough" as="h2" className="card-title" />
         <p className="text-secondary text-sm mb-6">
           Follow these 5 steps to verify the complete end-to-end invoice financing lifecycle and duplicate pledge prevention.
           (Default password for all demo accounts is <code>password1234</code>).

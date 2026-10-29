@@ -17,6 +17,8 @@ import { CommitmentView } from '../../components/CommitmentView/CommitmentView.j
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
 import { LoadingState } from '../../components/LoadingState/LoadingState.js';
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog.js';
+import { LifecycleStepper } from '../../components/LifecycleStepper/LifecycleStepper.js';
+import { AnimatedHeading } from '../../components/AnimatedHeading/AnimatedHeading.js';
 import {
   getInvoice,
   createPledge,
@@ -239,13 +241,17 @@ export default function PledgeReview() {
       <div className="page-header">
         <div>
           <div className={styles.titleRow}>
-            <h1 className="page-title">Finance Invoice {invoice.invoiceNumber}</h1>
+            <AnimatedHeading text={`Finance Invoice ${invoice.invoiceNumber}`} as="h1" className="page-title" />
             <StatusBadge status={invoice.status} />
           </div>
           <p className="text-secondary text-sm mt-1">
             Issued by {invoice.supplier.displayName} to {invoice.buyer.displayName}
           </p>
         </div>
+      </div>
+
+      <div className="mb-6">
+        <LifecycleStepper status={invoice.status} />
       </div>
 
       <div className={styles.grid}>

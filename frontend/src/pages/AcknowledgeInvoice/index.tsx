@@ -20,6 +20,8 @@ import { AuditTimeline } from '../../components/AuditTimeline/AuditTimeline.js';
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog.js';
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
 import { LoadingState } from '../../components/LoadingState/LoadingState.js';
+import { LifecycleStepper } from '../../components/LifecycleStepper/LifecycleStepper.js';
+import { AnimatedHeading } from '../../components/AnimatedHeading/AnimatedHeading.js';
 import {
   getInvoice,
   submitAcknowledgement,
@@ -129,13 +131,17 @@ export default function AcknowledgeInvoice() {
       <div className="page-header">
         <div>
           <div className={styles.titleRow}>
-            <h1 className="page-title">Invoice {invoice.invoiceNumber}</h1>
+            <AnimatedHeading text={`Invoice ${invoice.invoiceNumber}`} as="h1" className="page-title" />
             <StatusBadge status={invoice.status} />
           </div>
           <p className="text-secondary text-sm mt-1">
             Issued by {invoice.supplier.displayName} · Due on {invoice.dueDate}
           </p>
         </div>
+      </div>
+
+      <div className="mb-6">
+        <LifecycleStepper status={invoice.status} />
       </div>
 
       {/* Action Required Banner */}

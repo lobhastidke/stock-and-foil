@@ -1,0 +1,51 @@
+.wrapper {
+  display: inline-block;
+  vertical-align: top;
+  font-kerning: normal;
+  color: #ffffff;
+  font-weight: inherit;
+}
+
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 3px;
+  margin-right: 0.28em;
+}
+
+.word {
+  display: inline-block;
+  color: inherit;
+  font-weight: inherit;
+  opacity: 0;
+  transform: translateY(105%);
+  transition:
+    transform 0.52s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.withBlur {
+  filter: blur(3px);
+}
+
+.revealed .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.revealed .withBlur {
+  filter: none;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+

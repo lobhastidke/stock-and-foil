@@ -1,3 +1,38 @@
+.dashboardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.searchBar {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 240px;
+  background: rgba(13, 20, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--cyan);
+  background: rgba(18, 27, 48, 0.7);
+  box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.15);
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -7,30 +42,33 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: rgba(13, 20, 36, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   text-decoration: none;
   color: inherit;
   transition: all var(--transition-base);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card:hover {
-  border-color: var(--border-default);
-  background: var(--bg-elevated);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(18, 27, 48, 0.75);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .cardTop {
@@ -43,26 +81,36 @@
 .invoiceNumber {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--cyan);
   font-family: var(--font-mono);
+  letter-spacing: -0.01em;
 }
 
 .cardAmount {
-  font-size: 1.375rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #fff;
   letter-spacing: -0.02em;
 }
 
 .cardMeta {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: var(--space-3);
+}
+
+.buyerName {
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 .total {
   font-size: 0.8125rem;
   color: var(--text-muted);
   text-align: right;
+  font-family: var(--font-mono);
 }
