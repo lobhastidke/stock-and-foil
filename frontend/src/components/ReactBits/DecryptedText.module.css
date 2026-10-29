@@ -1,0 +1,11 @@
+.container {
+  display: inline-block;
+  font-family: inherit;
+  font-kerning: normal;
+}
+
+.text {
+  display: inline;
+  color: inherit;
+  font-weight: inherit;
+}

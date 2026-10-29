@@ -14,6 +14,8 @@ import { Layout } from '../../components/Layout/Layout.js';
 import { LoadingState } from '../../components/LoadingState/LoadingState.js';
 import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
 import { VerificationTimeline } from '../../components/VerificationTimeline/VerificationTimeline.js';
+import { SpotlightCard } from '../../components/ReactBits/SpotlightCard.js';
+import { ShinyText } from '../../components/ReactBits/ShinyText.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { getSystemStatus } from '../../api/endpoints.js';
 import { ROUTES } from '../../routes.js';
@@ -121,27 +123,27 @@ export default function AboutPage() {
           Stock &amp; Foil solves this by anchoring invoice commitments and deterministic pledge markers into an append-only registry:
         </p>
         <div className={styles.principlesGrid}>
-          <div className={styles.principleCard}>
+          <SpotlightCard className={styles.principleCard} spotlightColor="rgba(0, 242, 254, 0.15)">
             <div className={styles.principleIcon}>🔒</div>
             <div className={styles.principleTitle}>Confidentiality Off-Chain</div>
             <div className={styles.principleText}>
               Invoice details, amounts, client names, and invoices stay confidential and off-chain.
             </div>
-          </div>
-          <div className={styles.principleCard}>
+          </SpotlightCard>
+          <SpotlightCard className={styles.principleCard} spotlightColor="rgba(0, 242, 254, 0.15)">
             <div className={styles.principleIcon}>⚡</div>
             <div className={styles.principleTitle}>Single-Pledge Guarantee</div>
             <div className={styles.principleText}>
               Every commitment generates a deterministic <code>pledgeMarker</code>. A second pledge on the same marker is rejected.
             </div>
-          </div>
-          <div className={styles.principleCard}>
+          </SpotlightCard>
+          <SpotlightCard className={styles.principleCard} spotlightColor="rgba(168, 85, 247, 0.15)">
             <div className={styles.principleIcon}>📜</div>
             <div className={styles.principleTitle}>Tamper-Proof Audit</div>
             <div className={styles.principleText}>
               Every state transition creates a cryptographically-linked audit event visible to authorized parties.
             </div>
-          </div>
+          </SpotlightCard>
         </div>
       </div>
 
@@ -191,7 +193,9 @@ export default function AboutPage() {
       <div className="card mb-8">
         <div className={styles.limitsHeader}>
           <AnimatedHeading text="The Honest Limits" as="h2" className="card-title mb-0" />
-          <span className="badge badge-amber font-semibold">Transparency Guarantee</span>
+          <span className="badge badge-amber font-semibold">
+            <ShinyText speed={3.5}>Transparency Guarantee</ShinyText>
+          </span>
         </div>
         <p className="text-secondary text-sm mb-6">
           We believe responsible blockchain engineering requires clear and honest communication regarding what technology can and cannot guarantee.
@@ -199,11 +203,11 @@ export default function AboutPage() {
 
         <div className={styles.limitsGrid}>
           {HONEST_LIMITS.map((limit, idx) => (
-            <div key={idx} className={styles.limitCard}>
+            <SpotlightCard key={idx} className={styles.limitCard} spotlightColor="rgba(245, 158, 11, 0.12)">
               <div className={styles.limitIcon}>{limit.icon}</div>
               <h3 className={styles.limitTitle}>{limit.title}</h3>
               <p className={styles.limitText}>{limit.text}</p>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

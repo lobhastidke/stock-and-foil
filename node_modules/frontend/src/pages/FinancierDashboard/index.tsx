@@ -19,6 +19,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState.js';
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
 import { LifecycleStepper } from '../../components/LifecycleStepper/LifecycleStepper.js';
 import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
+import { SpotlightCard } from '../../components/ReactBits/SpotlightCard.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { listInvoices, listMyPledges } from '../../api/endpoints.js';
 import { useAuth } from '../../auth/AuthContext.js';
@@ -136,7 +137,7 @@ export default function FinancierDashboard() {
 
       {/* Executive KPI Stats */}
       <div className="kpi-grid">
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(0, 242, 254, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Available Liquidity Pool</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(0, 242, 254, 0.3)', color: 'var(--cyan)' }}>
@@ -149,9 +150,9 @@ export default function FinancierDashboard() {
           <div className="kpi-card-subtitle">
             <span style={{ color: 'var(--cyan)' }}>● {stats.availableCount} verified invoices</span> ready
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(16, 185, 129, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">My Pledged Capital</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', color: 'var(--success)' }}>
@@ -164,9 +165,9 @@ export default function FinancierDashboard() {
           <div className="kpi-card-subtitle">
             <span>{stats.activePledgesCount} active underwritten pledges</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(168, 85, 247, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Double-Pledge Intercepts</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(168, 85, 247, 0.3)', color: '#c084fc' }}>
@@ -179,9 +180,9 @@ export default function FinancierDashboard() {
           <div className="kpi-card-subtitle">
             <span>100% Fraud prevention on MST state</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(0, 242, 254, 0.14)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Registry Proof Status</span>
             <div className="kpi-card-icon">🔐</div>
@@ -192,7 +193,7 @@ export default function FinancierDashboard() {
           <div className="kpi-card-subtitle">
             <span>Deterministic cryptographic locks</span>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
       {/* Tabs */}

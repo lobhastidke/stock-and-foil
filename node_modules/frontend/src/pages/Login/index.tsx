@@ -10,6 +10,8 @@ import { ROUTES } from '../../routes.js';
 import { loginSchema } from '../../lib/validation.js';
 import { ApiError } from '../../api/client.js';
 import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
+import { SpotlightCard } from '../../components/ReactBits/SpotlightCard.js';
+import { DecryptedText } from '../../components/ReactBits/DecryptedText.js';
 import styles from './Login.module.css';
 
 export default function LoginPage() {
@@ -72,16 +74,22 @@ export default function LoginPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.card} role="main">
+      <SpotlightCard className={styles.card} spotlightColor="rgba(99, 102, 241, 0.16)">
         {/* Brand */}
         <div className={styles.brand}>
           <div className={styles.brandIconWrapper}>
             <span className={styles.brandIcon}>◈</span>
           </div>
           <AnimatedHeading text="Stock & Foil" as="h1" className={styles.brandName} />
-          <AnimatedText className={styles.brandTagline}>
-            Zero-Knowledge &amp; Merkle Receivables Registry
-          </AnimatedText>
+          <div style={{ marginTop: '4px' }}>
+            <DecryptedText
+              text="Zero-Knowledge & Merkle Receivables Registry"
+              speed={30}
+              maxIterations={10}
+              className={styles.brandTagline}
+              animateOn="view"
+            />
+          </div>
         </div>
 
         {/* 1-Click Demo Persona Quick Logins */}
@@ -180,7 +188,7 @@ export default function LoginPage() {
             <Link to={ROUTES.register} id="go-to-register">Register new company</Link>
           </p>
         </div>
-      </div>
+      </SpotlightCard>
     </div>
   );
 }

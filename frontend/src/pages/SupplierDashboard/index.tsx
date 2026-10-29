@@ -13,6 +13,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState.js';
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
 import { LifecycleStepper } from '../../components/LifecycleStepper/LifecycleStepper.js';
 import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
+import { SpotlightCard } from '../../components/ReactBits/SpotlightCard.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { listInvoices } from '../../api/endpoints.js';
 import { useAuth } from '../../auth/AuthContext.js';
@@ -108,7 +109,7 @@ export default function SupplierDashboard() {
 
       {/* Executive Web3 KPI Cards */}
       <div className="kpi-grid">
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(0, 242, 254, 0.14)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Total Receivables</span>
             <div className="kpi-card-icon">💎</div>
@@ -119,9 +120,9 @@ export default function SupplierDashboard() {
           <div className="kpi-card-subtitle">
             <span style={{ color: 'var(--cyan)' }}>● {stats.totalCount} Invoices</span> in registry
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(0, 242, 254, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Financing Ready</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(0, 242, 254, 0.3)', color: 'var(--cyan)' }}>
@@ -134,9 +135,9 @@ export default function SupplierDashboard() {
           <div className="kpi-card-subtitle">
             <span>Acknowledged &amp; Released to Financiers</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(16, 185, 129, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Funded Pledges</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', color: 'var(--success)' }}>
@@ -149,9 +150,9 @@ export default function SupplierDashboard() {
           <div className="kpi-card-subtitle">
             <span>Liquidity disbursed by financiers</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(168, 85, 247, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Anti-Fraud Guard</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(168, 85, 247, 0.3)', color: '#c084fc' }}>
@@ -164,7 +165,7 @@ export default function SupplierDashboard() {
           <div className="kpi-card-subtitle">
             <span>Deterministic Keccak-256 Merkle anchoring</span>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
       {/* Search and Filters Bar */}

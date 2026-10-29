@@ -1,12 +1,17 @@
 /**
  * components/VerificationTimeline/VerificationTimeline.tsx
  *
- * One memorable interactive scroll-driven verification timeline with a thin
- * animated cyan line and sequentially highlighted cryptographic steps.
+ * GSAP ScrollTrigger-driven verification timeline with a thin animated cyan line,
+ * sequentially highlighted cryptographic steps, and React Bits DecryptedText reveals.
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DecryptedText } from '../ReactBits/DecryptedText.js';
 import styles from './VerificationTimeline.module.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface StepData {
   step: number;
@@ -27,7 +32,7 @@ const VERIFICATION_STEPS: StepData[] = [
     description:
       'Supplier creates invoice metadata. A high-entropy cryptographic salt is generated off-chain to keep financial terms private.',
     proofLabel: 'Leaf Hash',
-    proofValue: 'keccak256(canonicalPayload + salt) -> 0x8f3c...b219',
+    proofValue: 'keccak256(canonicalPayload + salt) -> 0x8f3cb21974a9c8d3',
   },
   {
     step: 2,
@@ -37,7 +42,7 @@ const VERIFICATION_STEPS: StepData[] = [
     description:
       'The commitment hash is anchored into the append-only registry tree. No commercial data or pricing is revealed on-chain.',
     proofLabel: 'State Root',
-    proofValue: 'MST_Root #14289 -> Merkle Inclusion Confirmed',
+    proofValue: 'MST_Root #14289 -> Merkle Inclusion Confirmed [0x41ab]',
   },
   {
     step: 3,
@@ -47,7 +52,7 @@ const VERIFICATION_STEPS: StepData[] = [
     description:
       'The verified buyer reviews the invoice particulars and submits an acknowledgement signature, transitioning status to AVAILABLE.',
     proofLabel: 'Signer Proof',
-    proofValue: 'AckSignature(0x3b...99a1) -> Status: ACKNOWLEDGED',
+    proofValue: 'AckSignature(0x3b99a1) -> Status: ACKNOWLEDGED [Valid]',
   },
   {
     step: 4,
@@ -73,36 +78,42 @@ const VERIFICATION_STEPS: StepData[] = [
 
 export function VerificationTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [activeStep, setActiveStep] = useState<number>(1);
   const [lineHeight, setLineHeight] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  // Scroll-driven calculation for the thin animated cyan line
+  // GSAP ScrollTrigger Integration
   useEffect(() => {
-    function handleScroll() {
-      const el = containerRef.current;
-      if (!el) return;
+    if (typeof window === 'undefined') return;
 
-      const rect = el.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+    const el = trackRef.current || containerRef.current;
+    if (!el) return;
 
-      // Start when container reaches 75% down viewport, end when top passes 25%
-      const start = windowHeight * 0.75;
-      const end = windowHeight * 0.25;
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 75%',
+        end: 'bottom 35%',
+        scrub: 0.4,
+        onUpdate: (self) => {
+          if (isPlaying) return; // let animation play without scroll override if active
+          const progress = self.progress;
+          const rect = el.getBoundingClientRect();
+          const totalHeight = Math.max(el.scrollHeight, rect.height) - 40;
+          setLineHeight(progress * totalHeight);
 
-      const progress = Math.min(Math.max((start - rect.top) / (rect.height + (start - end)), 0), 1);
-      const totalHeight = rect.height - 40;
-      setLineHeight(progress * totalHeight);
+          const stepIndex = Math.min(
+            Math.floor(progress * VERIFICATION_STEPS.length) + 1,
+            VERIFICATION_STEPS.length,
+          );
+          setActiveStep(stepIndex);
+        },
+      });
+    }, containerRef);
 
-      // Sequentially highlight steps based on progress
-      const currentStep = Math.min(Math.floor(progress * VERIFICATION_STEPS.length) + 1, VERIFICATION_STEPS.length);
-      setActiveStep(currentStep);
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => ctx.revert();
+  }, [isPlaying]);
 
   // Optional auto-play demonstration
   useEffect(() => {
@@ -115,7 +126,7 @@ export function VerificationTimeline() {
         }
         return prev + 1;
       });
-    }, 2400);
+    }, 2200);
 
     return () => clearInterval(interval);
   }, [isPlaying]);
@@ -131,7 +142,7 @@ export function VerificationTimeline() {
     <div className={styles.timelineContainer} ref={containerRef} aria-label="Interactive Verification Timeline">
       <div className={styles.controlsBar}>
         <div className={styles.progressPill}>
-          <span>●</span>
+          <span className={styles.pulseDot}>●</span>
           <span>
             Verification Phase {activeStep} of {VERIFICATION_STEPS.length}
           </span>
@@ -146,7 +157,7 @@ export function VerificationTimeline() {
         </button>
       </div>
 
-      <div className={styles.trackWrapper}>
+      <div className={styles.trackWrapper} ref={trackRef}>
         {/* Subtle grey baseline */}
         <div className={styles.baseLine} />
 
@@ -165,7 +176,7 @@ export function VerificationTimeline() {
           return (
             <div
               key={step.step}
-              className={styles.stepRow}
+              className={`${styles.stepRow} ${isActive ? styles.stepRowActive : ''}`}
               onClick={() => {
                 setActiveStep(step.step);
                 setIsPlaying(false);
@@ -195,7 +206,19 @@ export function VerificationTimeline() {
                 <p className={styles.stepDescription}>{step.description}</p>
                 <div className={styles.cryptoProofBox}>
                   <span>{step.proofLabel}:</span>
-                  <span className={styles.proofValue}>{step.proofValue}</span>
+                  <span className={styles.proofValue}>
+                    {isActive ? (
+                      <DecryptedText
+                        text={step.proofValue}
+                        speed={28}
+                        maxIterations={10}
+                        characters="0123456789ABCDEFabcdef_#*+"
+                        animateOn="view"
+                      />
+                    ) : (
+                      step.proofValue
+                    )}
+                  </span>
                 </div>
               </div>
             </div>

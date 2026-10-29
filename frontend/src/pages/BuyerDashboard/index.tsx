@@ -18,6 +18,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState.js';
 import { ErrorBanner } from '../../components/ErrorBanner/ErrorBanner.js';
 import { LifecycleStepper } from '../../components/LifecycleStepper/LifecycleStepper.js';
 import { AnimatedHeading, AnimatedText } from '../../components/AnimatedHeading/AnimatedHeading.js';
+import { SpotlightCard } from '../../components/ReactBits/SpotlightCard.js';
 import { useAsync } from '../../hooks/useAsync.js';
 import { listInvoices } from '../../api/endpoints.js';
 import { useAuth } from '../../auth/AuthContext.js';
@@ -102,7 +103,7 @@ export default function BuyerDashboard() {
 
       {/* Buyer Executive KPI Metrics */}
       <div className="kpi-grid">
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(245, 158, 11, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Action Required</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(245, 158, 11, 0.3)', color: 'var(--warning)' }}>
@@ -115,9 +116,9 @@ export default function BuyerDashboard() {
           <div className="kpi-card-subtitle">
             <span>Invoices awaiting digital sign-off</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(0, 242, 254, 0.14)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Total Payables</span>
             <div className="kpi-card-icon">💳</div>
@@ -128,9 +129,9 @@ export default function BuyerDashboard() {
           <div className="kpi-card-subtitle">
             <span>Total invoice liabilities on registry</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(16, 185, 129, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Signed &amp; Approved</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', color: 'var(--success)' }}>
@@ -143,9 +144,9 @@ export default function BuyerDashboard() {
           <div className="kpi-card-subtitle">
             <span>Legitimacy confirmed by buyer</span>
           </div>
-        </div>
+        </SpotlightCard>
 
-        <div className="kpi-card">
+        <SpotlightCard className="kpi-card" spotlightColor="rgba(56, 189, 248, 0.16)">
           <div className="kpi-card-header">
             <span className="kpi-card-title">Settled Obligations</span>
             <div className="kpi-card-icon" style={{ borderColor: 'rgba(56, 189, 248, 0.3)', color: 'var(--cyan)' }}>
@@ -158,7 +159,7 @@ export default function BuyerDashboard() {
           <div className="kpi-card-subtitle">
             <span>Payments completed &amp; retired</span>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
       {/* Search Input Bar */}

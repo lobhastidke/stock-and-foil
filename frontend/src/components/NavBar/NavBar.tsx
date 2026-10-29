@@ -9,6 +9,7 @@ import { useAuth } from '../../auth/AuthContext.js';
 import { ROUTES } from '../../routes.js';
 import { getSystemStatus } from '../../api/endpoints.js';
 import type { SystemStatus } from '../../api/types.js';
+import { ShinyText } from '../ReactBits/ShinyText.js';
 import styles from './NavBar.module.css';
 
 const DEMO_PERSONAS = [
@@ -213,7 +214,7 @@ export function NavBar() {
         <div className={styles.telemetry} title="Decentralized State & Consensus Engine">
           <span className={styles.networkPulse}>
             <span className={styles.pulseDot} />
-            <span>{networkName}</span>
+            <ShinyText speed={3}>{networkName}</ShinyText>
           </span>
           <span className={`${styles.blockTicker} ${blockFlash ? styles.blockFlash : ''}`}>
             #{blockHeight.toLocaleString()}

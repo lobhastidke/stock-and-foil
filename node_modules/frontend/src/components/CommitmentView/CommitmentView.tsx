@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { verifyCommitment } from '../../api/endpoints.js';
+import { DecryptedText } from '../ReactBits/DecryptedText.js';
 import styles from './CommitmentView.module.css';
 
 interface Props {
@@ -65,7 +66,15 @@ export function CommitmentView({ commitment, invoiceId }: Props) {
       </div>
 
       <div className={styles.hashBox}>
-        <code className={`code-block ${styles.hash}`}>{commitment}</code>
+        <code className={`code-block ${styles.hash}`}>
+          <DecryptedText
+            text={commitment}
+            speed={25}
+            maxIterations={12}
+            characters="0123456789abcdef"
+            animateOn="view"
+          />
+        </code>
       </div>
 
       {verified === true && (
