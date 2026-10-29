@@ -1,0 +1,24 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "demo:local": "hardhat run scripts/demo-local.ts"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "chai": "^4.3.7",
+    "ethers": "^6.13.1",
+    "hardhat": "^2.22.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
