@@ -148,6 +148,29 @@ export default function PledgeReview() {
     }
   }
 
+  async function handleSimulateDuplicate() {
+    if (!id || !invoice) return;
+    setSubmitting(true);
+    setGeneralError(null);
+    setDuplicateMarker(null);
+    setMarkerInfo(null);
+    try {
+      await createPledge(id, {
+        advanceMinorUnits: invoice.amountMinorUnits,
+        note: "Simulated duplicate financing attempt",
+      });
+    } catch (err) {
+      if (err instanceof ApiError && err.code === "DUPLICATE_PLEDGE") {
+        const details = err.details as { pledgeMarker?: string } | undefined;
+        setDuplicateMarker(details?.pledgeMarker ?? "unknown");
+      } else {
+        setGeneralError(err);
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   async function handleCheckMarker() {
     if (!duplicateMarker || duplicateMarker === 'unknown') return;
     setCheckingMarker(true);
@@ -262,11 +285,28 @@ export default function PledgeReview() {
 
             {!isAvailable ? (
               <div className={styles.unavailableWarning}>
-                <p className="font-semibold text-sm">This invoice is not available for financing.</p>
+                <p className="font-semibold text-sm">This invoice is not available for initial financing.</p>
                 <p className="text-xs text-muted mt-1">
                   Current invoice status is <strong>{invoice.status}</strong>. Invoices must be in{' '}
-                  <strong>AVAILABLE</strong> status (released by supplier after buyer acknowledgement) to accept pledges.
+                  <strong>AVAILABLE</strong> status to accept an initial pledge.
                 </p>
+                {invoice.status === 'PLEDGED' && (
+                  <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
+                    <p className="text-xs text-secondary mb-2">
+                      💡 <strong>Hackathon Demo:</strong> Test what happens if someone attempts to finance this already-pledged invoice a second time:
+                    </p>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => void handleSimulateDuplicate()}
+                      disabled={submitting}
+                      style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
+                      id="simulate-duplicate-btn"
+                    >
+                      {submitting ? 'Testing on Registry…' : '🚨 Attempt Duplicate Financing (Simulate Fraud)'}
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmitClick}>
