@@ -162,3 +162,47 @@ npm run test -w chain
 2. **Authenticity**: A cryptographic commitment, buyer acknowledgement, or blockchain transaction does **not** legally verify invoice authenticity, real-world goods delivery, or creditworthiness.
 3. **Custodial Operator**: The blockchain records transactions signed by the backend relayer operator key, confirming registry-level consensus.
 4. **No Native Escrow**: Funding is simulated off-chain. No fiat or ERC-20 transfers take place on the registry contract.
+
+---
+
+## 9. Official MST Testnet Specification & Verification Report
+
+*Verified against official documentation at [mstblockchain.com](https://mstblockchain.com) and [chainlist.org](https://chainlist.org/chain/4545).*
+
+| Parameter | Official Value | Verification Source |
+| :--- | :--- | :--- |
+| **Network Name** | `MST Testnet` | Official MST Documentation |
+| **Chain ID** | `4545` (Hex: `0x11c1`) | [mstblockchain.com](https://mstblockchain.com), [chainlist.org](https://chainlist.org) |
+| **Currency Symbol** | `tMSTC` | MST Testnet Spec |
+| **RPC Endpoint** | `https://testnetrpc.mstblockchain.com` | Official MST RPC Gateway |
+| **Block Explorer** | `https://testnet.mstscan.com` | Official MST Scan Explorer |
+| **Official Faucet** | `https://mstblockchain.com` | Official Testnet Faucet Portal |
+| **EVM Target** | `paris` | Standard EVM compatibility (no PUSH0 opcode dependency) |
+
+### Deployment Command for MST Testnet
+Once a dedicated testnet operator key is funded via the official faucet, deploy via:
+```bash
+npx hardhat run scripts/deploy.ts --network mstTestnet --cwd ./contracts
+```
+The deploy script saves the verified contract address and ABI to `contracts/deployments/mstTestnet.json`.
+
+---
+
+## 10. Operational Procedures & Disaster Recovery
+
+### 10.1 Stuck PENDING Transactions
+Because the backend relayer writes an idempotency key and initiates an on-chain transaction:
+- The `EvmAdapter` waits up to 4 seconds for 1 confirmation; if network latency delays mining, it returns status `'PENDING'` with the `txHash`.
+- The background Vercel cron (`POST /api/v1/internal/reconcile` every 5 minutes) calls `adapter.getTxStatus(txHash)`.
+- If mined successfully, the backend marks the transaction `'CONFIRMED'`.
+- If the transaction was dropped or reverted on-chain, reconciliation marks it `'FAILED'` and frees the idempotency lock.
+
+### 10.2 Relayer Key Rotation
+If the `OPERATOR_PRIVATE_KEY` is ever compromised:
+1. The admin account (`DEFAULT_ADMIN_ROLE`) invokes `grantRole(OPERATOR_ROLE, newOperatorAddress)` on the registry contract.
+2. The admin invokes `revokeRole(OPERATOR_ROLE, oldOperatorAddress)`.
+3. Update `OPERATOR_PRIVATE_KEY` in Vercel environment variables. No contract redeployment or state migration is needed!
+
+### 10.3 Emergency Fallback to MOCK Mode
+If the testnet RPC experiences an extended outage, set `CHAIN_MODE=MOCK` in Vercel environment variables. The application immediately falls back to in-memory/database mock mode, ensuring zero downtime for live demonstrations.
+

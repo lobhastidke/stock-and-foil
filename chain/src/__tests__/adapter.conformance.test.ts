@@ -39,7 +39,7 @@ function runConformanceSuite(
       financierRef = randomHex();
       wrongFinancierRef = randomHex();
       pledgeMarker = computePledgeMarker(commitment);
-    });
+    }, 30000);
 
     it('returns initial state as NONE and marker as unused', async () => {
       const state = await adapter.getInvoiceState(commitment);
@@ -189,23 +189,42 @@ function runConformanceSuite(
   });
 }
 
+async function isNodeRunning(): Promise<boolean> {
+  try {
+    const res = await fetch('http://127.0.0.1:8545', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', method: 'net_version', params: [], id: 1 }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 // 1. Run Conformance Suite against MockAdapter
 runConformanceSuite('MockAdapter', async () => new MockAdapter());
 
 // 2. Run Conformance Suite against EvmAdapter on Local Hardhat Node
-runConformanceSuite('EvmAdapter (Local Hardhat)', async () => {
-  const deploymentPath = path.resolve(__dirname, '../../../contracts/deployments/localhost.json');
-  if (!fs.existsSync(deploymentPath)) {
-    throw new Error('Local deployment artifact not found. Run deploy script first.');
-  }
+const deploymentPath = path.resolve(__dirname, '../../../contracts/deployments/localhost.json');
+const nodeAvailable = await isNodeRunning();
+
+if (nodeAvailable && fs.existsSync(deploymentPath)) {
   const deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf-8'));
 
-  return new EvmAdapter({
-    mode: 'HARDHAT',
-    rpcUrl: 'http://127.0.0.1:8545',
-    chainId: 31337,
-    contractAddress: deployment.contractAddress,
-    // Deployer/Operator account #0 on Hardhat
-    operatorPrivateKey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
+  runConformanceSuite('EvmAdapter (Local Hardhat)', async () => {
+    return new EvmAdapter({
+      mode: 'HARDHAT',
+      rpcUrl: 'http://127.0.0.1:8545',
+      chainId: 31337,
+      contractAddress: deployment.contractAddress,
+      // Deployer/Operator account #0 on Hardhat
+      operatorPrivateKey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
+    });
   });
-});
+} else {
+  describe('Conformance Suite: EvmAdapter (Local Hardhat)', () => {
+    it.skip('Local Hardhat node is not running on port 8545. Start with: npx hardhat node', () => {});
+  });
+}
+
