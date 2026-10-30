@@ -289,13 +289,6 @@ export default function PledgeReview() {
               </div>
             ) : (
               <form onSubmit={handleSubmitClick}>
-                {invoice.status === 'PLEDGED' && !duplicateMarker && (
-                  <div className={styles.unavailableWarning} style={{ marginBottom: '1rem' }}>
-                    <p className="font-semibold text-xs text-secondary">
-                      ℹ️ This invoice is currently <strong>PLEDGED</strong>. Submitting another pledge will test registry duplicate protection.
-                    </p>
-                  </div>
-                )}
                 <div className="form-group mb-4">
                   <label htmlFor="advance-amount" className="label required">
                     Financing Advance Amount (₹)
