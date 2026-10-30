@@ -298,22 +298,13 @@ export default function FinancierDashboard() {
                         </div>
 
                         <div className={styles.cardFooter}>
-                          {isAvailable ? (
-                            <Link
-                              to={ROUTES.pledgeReview(inv.id)}
-                              className="btn btn-primary btn-sm w-full"
-                              id={`pledge-btn-${inv.id}`}
-                            >
-                              ⚡ Review &amp; Pledge Liquidity
-                            </Link>
-                          ) : (
-                            <Link
-                              to={ROUTES.pledgeReview(inv.id)}
-                              className="btn btn-secondary btn-sm w-full"
-                            >
-                              View Audit &amp; Commitments
-                            </Link>
-                          )}
+                          <Link
+                            to={ROUTES.pledgeReview(inv.id)}
+                            className="btn btn-primary btn-sm w-full"
+                            id={`pledge-btn-${inv.id}`}
+                          >
+                            ⚡ Review &amp; Pledge Liquidity
+                          </Link>
                         </div>
                       </div>
                     );

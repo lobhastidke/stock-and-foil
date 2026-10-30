@@ -283,33 +283,19 @@ export default function PledgeReview() {
           <div className="card mb-6">
             <h2 className="card-title">Pledge Details</h2>
 
-            {!isAvailable ? (
+            {invoice.status === 'SETTLED' ? (
               <div className={styles.unavailableWarning}>
-                <p className="font-semibold text-sm">This invoice is not available for initial financing.</p>
-                <p className="text-xs text-muted mt-1">
-                  Current invoice status is <strong>{invoice.status}</strong>. Invoices must be in{' '}
-                  <strong>AVAILABLE</strong> status to accept an initial pledge.
-                </p>
-                {invoice.status === 'PLEDGED' && (
-                  <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
-                    <p className="text-xs text-secondary mb-2">
-                      💡 <strong>Hackathon Demo:</strong> Test what happens if someone attempts to finance this already-pledged invoice a second time:
-                    </p>
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm"
-                      onClick={() => void handleSimulateDuplicate()}
-                      disabled={submitting}
-                      style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
-                      id="simulate-duplicate-btn"
-                    >
-                      {submitting ? 'Testing on Registry…' : '🚨 Attempt Duplicate Financing (Simulate Fraud)'}
-                    </button>
-                  </div>
-                )}
+                <p className="font-semibold text-sm">This invoice is already settled and closed.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmitClick}>
+                {invoice.status === 'PLEDGED' && !duplicateMarker && (
+                  <div className={styles.unavailableWarning} style={{ marginBottom: '1rem' }}>
+                    <p className="font-semibold text-xs text-secondary">
+                      ℹ️ This invoice is currently <strong>PLEDGED</strong>. Submitting another pledge will test registry duplicate protection.
+                    </p>
+                  </div>
+                )}
                 <div className="form-group mb-4">
                   <label htmlFor="advance-amount" className="label required">
                     Financing Advance Amount (₹)

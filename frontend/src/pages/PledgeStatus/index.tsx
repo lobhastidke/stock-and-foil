@@ -204,6 +204,11 @@ export default function PledgeStatus() {
                 <h2 className="card-title mb-0">Associated Invoice</h2>
                 <StatusBadge status={invoice.status} />
               </div>
+              <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                <Link to={ROUTES.pledgeReview(invoice.id)} className="btn btn-secondary btn-sm w-full" style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}>
+                  🚨 Attempt Another Pledge on This Invoice (Test Fraud Prevention)
+                </Link>
+              </div>
               <div className={styles.metaList} style={{ marginTop: 'var(--space-4)' }}>
                 <div className={styles.metaItem}>
                   <span className={styles.metaLabel}>Invoice Number</span>
