@@ -1,0 +1,8 @@
+{
+  "network": "mstTestnet",
+  "chainId": 91562037,
+  "contractAddress": "0x9a1559F1bCc8dd80c34a1F4706c66d897722dfEE",
+  "deployer": "0x985FF2cf53D7908D5ecfAa0808ecC0e432bD4d68",
+  "operator": "0x985FF2cf53D7908D5ecfAa0808ecC0e432bD4d68",
+  "deployedAt": "2026-10-30T08:10:01.781Z"
+}

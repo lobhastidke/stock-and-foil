@@ -208,11 +208,14 @@ export class EvmAdapter implements ChainAdapter {
   }
 
   private async executeTx(
-    fn: (overrides: { nonce?: number }) => Promise<ethers.ContractTransactionResponse>
+    fn: (overrides: { nonce?: number; gasLimit?: bigint }) => Promise<ethers.ContractTransactionResponse>
   ): Promise<TxResult> {
     try {
       const nonce = await this.getFreshNonce();
-      const overrides = nonce !== undefined ? { nonce } : {};
+      const overrides: { nonce?: number; gasLimit?: bigint } = { gasLimit: 300000n };
+      if (nonce !== undefined) {
+        overrides.nonce = nonce;
+      }
       const tx = await fn(overrides);
       const txHash = tx.hash as Hex;
 
